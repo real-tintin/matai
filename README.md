@@ -2,14 +2,15 @@
 MATLAB AI toolbox for creation, training and testing of Neural Networks. Usefull as a learning platform for the concepts of Artcifical Neural Networks.
 
 ## Prerequisites
-* MATLAB ($\geq$ R2014b)
+* MATLAB (>= R2014b)
 
 ## Getting Started
-Just run and/or modify the example scripts *MainANN_SimpleData.m* and *MainANN_MNISTData.m*. A lot of customazation for building and tuning of the network exist.
-
-TODO: List features.
+Just run and start modify the example scripts *MainANN_SimpleData.m* and *MainANN_MNISTData.m*. A lot of customazation for building and tuning of the network exist.
 
 ## Analysis
+
+### Features
+TODO: List features and settings.
 
 ### Console log
 ```bash
@@ -35,7 +36,7 @@ Test error: 3.92 %
 ```
 
 ### Plots
-<img src="./Figures/SimpleNetwork.png" width="200" height="200" />
-<img src="./Figures/SimpleError.png" width="200" height="200" />
-<img src="./Figures/SimpleWeightBias.png" width="200" height="200" />
-<img src="./Figures/MNISTFalseClassification.png" width="200" height="200" />
+<img src="./Figures/SimpleNetwork.png"/>
+<img src="./Figures/SimpleError.png"/>
+<img src="./Figures/SimpleWeightBias.png"/>
+<img src="./Figures/MNISTFalseClassification.png"/>
