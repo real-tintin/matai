@@ -112,7 +112,7 @@ NeruonString = [num2str(sum(Neurons)) ' (' ...
     sprintf([repmat('%ix', 1, length(Neurons) - 1) '%i'], Neurons) ')'];
 
 % Print
-fprintf(['*** Traning started ' ...
+fprintf(['*** Training started ' ...
     datestr(now, 'yyyy-mm-dd HH:MM:SS') ' ***\n']);
 fprintf(['    Layers        :   ' num2str(Layers) ' \n']);
 fprintf(['    Neurons       :   ' NeruonString ' \n']);
@@ -121,6 +121,6 @@ fprintf(['    Epochs        :   ' num2str(Epochs) ' \n']);
 
 % Print end
 function PrintEnd(TimeEnd)
-fprintf(['    Traning time  :   ' num2str(TimeEnd) ' s\n']);
-fprintf(['*** Traning completed ' ...
+fprintf(['    Training time  :   ' num2str(TimeEnd) ' s\n']);
+fprintf(['*** Training completed ' ...
     datestr(now, 'yyyy-mm-dd HH:MM:SS') ' ***\n']);

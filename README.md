@@ -1,20 +1,17 @@
 # matai
-MATLAB AI toolbox for creation, training and testing of Neural Networks. Usefull as a learning platform for the concepts of Artcifical Neural Networks.
+MATLAB AI tool for creation, training and testing of Neural Networks. Useful as a learning platform for the concepts of Artificial Neural Networks.
 
 ## Prerequisites
 * MATLAB (>= R2014b)
 
 ## Getting Started
-Just run and start modify the example scripts *MainANN_SimpleData.m* and *MainANN_MNISTData.m*. A lot of customazation for building and tuning of the network exist.
+Just run and start modify the example scripts `MainANN_SimpleData.m` and `MainANN_MNISTData.m`. A lot of customization regarding design and tuning of the network exist, see the example scripts for all available features.
 
 ## Analysis
 
-### Features
-TODO: List features and settings.
-
-### Console log
+### Console
 ```bash
-*** Traning started 2020-02-28 15:49:47 ***
+*** Training started 2020-02-28 15:49:47 ***
     Layers        :   6
     Neurons       :   1154 (784x192x96x48x24x10)
     Batch size    :   100
@@ -29,8 +26,8 @@ TODO: List features and settings.
            Train error: 4.02 %
        + Epoch 5
            Train error: 3.27 %
-    Traning time  :   15.0164 s
-*** Traning completed 2020-02-28 15:50:02 ***
+    Training time  :   15.0164 s
+*** Training completed 2020-02-28 15:50:02 ***
 Train error: 3.27 %
 Test error: 3.92 %
 ```
