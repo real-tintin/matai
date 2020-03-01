@@ -1,7 +1,5 @@
-% Machine Learning ANN: GetMNISTData
 function [X, Y] = GetMNISTData(DataType)
 
-% Get file name part based on DataType
 switch DataType
     case 'Train'
         FileNamePart = 'train';

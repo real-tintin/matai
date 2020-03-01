@@ -1,19 +1,16 @@
-% Machine Learning ANN: GetSimpleData
 function [X, Y] = GetSimpleData(DataSize, Case)
 
-% Random shuffle of rand
-rand('twister');
+rng('shuffle');
 
-% Generate data
 switch Case
-    case 1
+    case 'TruthTable3'
         X = rand(3, DataSize) > 0.5;
         Y = X(1, :) & X(2, :);
-    case 2
+    case 'TruthTable9'
         X = rand(9, DataSize) > 0.5;
         Y = (X(1, :) & X(5, :) & X(9, :)) | ...
             (X(3, :) & X(5, :) & X(7, :));
-    case 3
+    case 'BinaryPower'
         Xdec = round(rand(1, DataSize)*7);
         Ydec = Xdec.^2;
         Xbin = dec2bin(Xdec, 4);

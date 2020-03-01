@@ -1,18 +1,13 @@
-% Machine Learning ANN: LoadMNISTLabels
-function labels = LoadMNISTLabels(filename)
+function Labels = LoadMNISTLabels(FilePath)
 
-fp = fopen(filename, 'rb');
-assert(fp ~= -1, ['Could not open ', filename, '']);
+FileH = fopen(FilePath, 'rb');
+assert(FileH ~= -1, ['Could not open ', FilePath, '']);
 
-magic = fread(fp, 1, 'int32', 0, 'ieee-be');
-assert(magic == 2049, ['Bad magic number in ', filename, '']);
+magic = fread(FileH, 1, 'int32', 0, 'ieee-be');
+assert(magic == 2049, ['Bad magic number in ', FilePath, '']);
 
-numLabels = fread(fp, 1, 'int32', 0, 'ieee-be');
+nLabels = fread(FileH, 1, 'int32', 0, 'ieee-be');
+Labels = fread(FileH, inf, 'uchar');
 
-labels = fread(fp, inf, 'uchar');
-
-assert(size(labels,1) == numLabels, 'Mismatch in label count');
-
-fclose(fp);
-
-end
+assert(size(Labels, 1) == nLabels, 'Mismatch in label count');
+fclose(FileH);

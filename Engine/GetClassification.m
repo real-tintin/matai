@@ -1,13 +1,11 @@
-% Machine Learning ANN: GetClassification
 function [C, ErrorBin, ErrorCon] = GetClassification(ANN, X, Y)
 
-% Data size
-DataSize = size(X, 2);
+ANN = ForwardPropagation(ANN, X, size(X, 2));
 
-% Forward propagation
-ANN = ForwardPropagation(ANN, X, DataSize);
+ErrorCon = GetErrorCon(ANN, Y);
+[ErrorBin, C] = GetErrorBin(ANN, Y);
 
-% Continues output error
+function ErrorCon = GetErrorCon(ANN, Y)
 switch ANN.CostFunc
     case 'CrossEntropy'
         VCon     = -(Y.*log(ANN.A{end}) + (1 - Y).*log(1 - ANN.A{end}));
@@ -17,13 +15,13 @@ switch ANN.CostFunc
         ErrorCon = 0.5*(sum(VCon.^2, 1));
 end
 
-% Classification and binary output error
+function [ErrorBin, C] = GetErrorBin(ANN, Y)
 Outputs = ANN.Outputs;
-C       = zeros(Outputs, DataSize);
+C       = zeros(Outputs, size(Y, 2));
 switch ANN.ClassMethod
     case 'max1'
-        [Val Idx] = max(ANN.A{end}, [], 1);
-        for iC = 1:DataSize
+        [~, Idx] = max(ANN.A{end}, [], 1);
+        for iC = 1 : size(C, 2)
             C(Idx(iC), iC) = 1;
         end
         VBin = Y - C;

@@ -1,29 +1,17 @@
-% Machine Learning ANN: DistortImage
 function [XOut, YOut] = DistortImage(XIn, YIn)
 
-% Initialize grid struct
-GS = InitializeGS(XIn, YIn);
+GS = InitializeGS(XIn);
 
-% Rotate in pos-direction
 XRotPos = TransformImage(XIn, GS, 'Rotation', pi/6);
-
-% Rotate in neg-direction
 XRotNeg = TransformImage(XIn, GS, 'Rotation', -pi/6);
-
-% Scale in x-direction
 XScaleX = TransformImage(XIn, GS, 'Scale', [1.1 1]);
-
-% Scale in y-direction
 XScaleY = TransformImage(XIn, GS, 'Scale', [1 1.1]);
 
-% Concatenate data
 XOut = [XRotPos XRotNeg XScaleX XScaleY];
 YOut = [YIn YIn YIn YIn];
 
-% Transform image
 function XT = TransformImage(XI, GS, Type, Var)
 
-% Transformation matrix
 switch Type
     case 'Rotation'
         T = [cos(Var) -sin(Var); sin(Var) cos(Var)];
@@ -33,33 +21,23 @@ switch Type
         T = eye(2);
 end
 
-% Transform each image (data)
 XT = zeros(GS.Pixels, GS.DataSize);
 for iData = 1:GS.DataSize
     
-    % Image in initial frame
-    ImageI = reshape(XI(:, iData), GS.PixelM, GS.PixelM);
-    
-    % Image in transformed frame
-    ImageT = zeros(GS.PixelM, GS.PixelM);
+    ImageI = reshape(XI(:, iData), GS.PixelM, GS.PixelM); % Initial frame
+    ImageT = zeros(GS.PixelM, GS.PixelM); % Transformed frame
     
     for ixGI = 1:GS.PixelM
         for iyGI = 1:GS.PixelM
             
-            % Update only if pixel intensity > 0
             PixelIntensity = ImageI(iyGI, ixGI);
             if PixelIntensity > 0
                 
-                % Initial position
-                rCI = [GS.xCV(ixGI) GS.yCV(iyGI)]';
+                rCI = [GS.xCV(ixGI) GS.yCV(iyGI)]'; % Initial position
+                rCT = T * rCI; % Transform position
                 
-                % Transform position
-                rCT = T * rCI;
+                [rGT, Rat] = rC2rG(rCT, GS); % Translate rCT to rGT
                 
-                % Translate rCT to rGT
-                [rGT, Rat] = rC2rG(rCT, GS);
-                
-                % Save data
                 for irGT = 1:size(rGT, 2)
                     ixGT = rGT(1, irGT);
                     iyGT = rGT(2, irGT);
@@ -67,27 +45,18 @@ for iData = 1:GS.DataSize
                     ImageT(iyGT, ixGT) = iRat * PixelIntensity + ...
                         ImageT(iyGT, ixGT);
                 end
-                
             end
-            
         end
     end
     
-    % Normalize
+    % Normalize & store.
     ImageT = ImageT / max(max(ImageT));
-    
-    % Save data
     XT(:, iData) = reshape(ImageT, [], 1);
-    
 end
 
-% Initialize grid struct
-function GS = InitializeGS(X, Y)
-
-% Create struct
+function GS = InitializeGS(X)
 GS = struct();
 
-% Variables
 GS.DataSize = size(X, 2);
 GS.Pixels   = size(X, 1);
 GS.PixelM   = sqrt(GS.Pixels);
@@ -102,7 +71,6 @@ GS.yGV = 1:GS.PixelM;
 GS.krG = 0.5 * [1 -1]';
 GS.mrG = (GS.PixelM + 1)/2 * [1 1]';
 
-% Translate rC to rG
 function [rG, Rat] = rC2rG(rCRef, GS)
 
 % Translate rCRef to rGRef

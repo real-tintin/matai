@@ -1,22 +1,18 @@
-% Machine Learning ANN: PlotWBConvergence
-function PlotHandle = PlotWBConvergence(State, Settings)
-
-% Data
+function PlotWBConvergence(State, Settings)
 Epochs = Settings.Train.Epochs;
 Epoch  = 1:Epochs;
 
-% Plot weight and bias convergence for each layer and node
-PlotHandle = [];
 Layers = State.ANN{1}.Layers;
 for Layer = 2:Layers
-    PlotHandle = [PlotHandle figure];
+    figure;
     annotation('textbox', [0 0.9 1 0.1], 'String', ['Weight and bias '...
         'convergence for layer l_{' num2str(Layer) '}'], 'EdgeColor', ...
         'none', 'HorizontalAlignment', 'center', 'FontSize', 11);
-
+    
     Nodes    = size(State.ANN{1}.W{Layer}, 1);
     Weights  = size(State.ANN{1}.W{Layer}, 2);
     SubPlotM = ceil(sqrt(Nodes));
+    
     for Node = 1:Nodes
         W = inf(Epochs, Weights);
         b = inf(1, Epochs);
@@ -25,8 +21,7 @@ for Layer = 2:Layers
             W(iEpoch, :) = ANN.W{Layer}(Node, :);
             b(iEpoch)    = ANN.b{Layer}(Node);
         end
-
-        % Plot
+        
         subplot(SubPlotM, SubPlotM, Node);
         line(Epoch, W, 'LineStyle', '-', 'LineWidth', 2);
         line(Epoch, b, 'LineStyle', '--', 'LineWidth', 2);
@@ -34,6 +29,5 @@ for Layer = 2:Layers
         xlabel('Epoch', 'FontSize', 8);
         ylabel('W (-) b (--)', 'FontSize', 8);
         grid on;
-
     end
 end

@@ -1,5 +1,4 @@
-% Machine Learning ANN: MainANN_SimpleData
-function ANN = MainANN_SimpleData
+function ANN = MainANN_SimpleData()
 
 %% *** Setup MATLAB ***
 SetupMATLAB();
@@ -10,12 +9,12 @@ Settings.ANN.CostFunc               = 'CrossEntropy'; % CrossEntropy or Quadrati
 Settings.ANN.ClassMethod            = 'above50%';     % max1 or above50%
 
 %% *** Settings for traning ***
-Settings.Train.Alfa                 = 0.3;   % Learning rate [0,1]
-Settings.Train.Lambda               = 0.001; % Weight decay [0,1]
-Settings.Train.Eta                  = 0.01;  % Momentum [0,1]
-Settings.Train.BreakPoint           = 0.00;  % Breakpoint(s) to change parameters
+Settings.Train.Alfas                = 0.3;   % Learning rate [0,1]
+Settings.Train.Lambdas              = 0.001; % Weight decay [0,1]
+Settings.Train.Etas                 = 0.01;  % Momentum [0,1]
+Settings.Train.BreakPoints          = 0.00;  % Breakpoint(s) to change parameters
 Settings.Train.BatchSize            = 1;     % Batch size
-Settings.Train.Epochs               = 30;    % Epochs (forward/backward passes)
+Settings.Train.Epochs               = 10;    % Epochs (forward/backward passes)
 
 %% *** Settings for plotting ***
 Settings.Plot.ErrorConvergence      = true; % Error convergence
@@ -24,7 +23,7 @@ Settings.Plot.NeuralNetwork         = true; % Plot neural network
 Settings.Plot.MNISTImages           = {};   % Plot MNIST images
 
 %% *** Select train and test data ***
-Case                            = 3;
+Case                            = 'BinaryPower';
 DataSize                        = 1e3;
 TrainRatio                      = 0.5;
 [X, Y]                          = GetSimpleData(DataSize, Case);

@@ -8,7 +8,7 @@ if Settings.Plot.WBConvergence
 end
 
 if Settings.Plot.NeuralNetwork
-    PlotNeuralNetwork(ANN, Settings);
+    PlotNeuralNetwork(ANN);
 end
 
 if ~isempty(Settings.Plot.MNISTImages)

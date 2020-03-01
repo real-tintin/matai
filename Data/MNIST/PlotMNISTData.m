@@ -1,28 +1,25 @@
-% Machine Learning ANN: PlotMNISTData
-function PlotHandle = PlotMNISTData(XRaw, YRaw)
+function PlotMNISTData(XRaw, YRaw, C)
 
-% Pixels
 Pixels = length(XRaw);
 PixelM = sqrt(Pixels);
 
-% Reshape and rescale pixels
 X = reshape(XRaw, PixelM, PixelM);
-X = 255*X;
+X = 255 * X;
 
-% Get label
-Y = (0:9)*YRaw;
+Label = (0:9) * YRaw;
+Clas = (0:9) * C;
 
-% Colormap in grayescale
-map = linspace(1, 0, 256)' * [1 1 1];
+GrayCMap = linspace(1, 0, 256)' * [1 1 1];
 
-% Plot
-PlotHandle = figure;
+figure;
 image(X);
-colormap(map);
+colormap(GrayCMap);
 daspect([1 1 1]);
-TitleString = sprintf('Plot MNIST image, %i (%ix%i) pixels, label = %i', ...
-    Pixels, PixelM, PixelM, Y);
+
+TitleString = sprintf('MNIST %i (%ix%i) pixels, label = %i, clas = %i', ...
+    Pixels, PixelM, PixelM, Label, Clas);
 title(TitleString, 'FontSize', 12);
+
 set(gca, 'Xtick', ((0:PixelM) + 0.5));
 set(gca, 'Ytick', ((0:PixelM) + 0.5));
 set(gca, 'XTickLabel', []);

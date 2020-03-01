@@ -1,4 +1,3 @@
-% Machine Learning ANN: LoadMNISTImages
 function Images = LoadMNISTImages(FilePath)
 
 FileH = fopen(FilePath, 'rb');
@@ -7,12 +6,12 @@ assert(FileH ~= -1, ['Could not open ', FilePath, '']);
 Magic = fread(FileH, 1, 'int32', 0, 'ieee-be');
 assert(Magic == 2051, ['Bad magic number in ', FilePath, '']);
 
-numImages = fread(FileH, 1, 'int32', 0, 'ieee-be');
-numRows = fread(FileH, 1, 'int32', 0, 'ieee-be');
-numCols = fread(FileH, 1, 'int32', 0, 'ieee-be');
+nImages = fread(FileH, 1, 'int32', 0, 'ieee-be');
+nRows = fread(FileH, 1, 'int32', 0, 'ieee-be');
+nCols = fread(FileH, 1, 'int32', 0, 'ieee-be');
 
 Images = fread(FileH, inf, 'uchar');
-Images = reshape(Images, numCols, numRows, numImages);
+Images = reshape(Images, nCols, nRows, nImages);
 Images = permute(Images,[2 1 3]);
 
 fclose(FileH);

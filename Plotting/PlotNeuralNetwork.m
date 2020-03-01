@@ -1,11 +1,7 @@
-% Machine Learning ANN: PlotNeuralNetwork
-function Handle = PlotNeuralNetwork(ANN, Settings)
-
-% Settings
+function PlotNeuralNetwork(ANN)
 LayerMargin  = 1;
 NeuronMargin = 1;
 
-% Get some data
 Layers  = ANN.Layers;
 Neurons = ANN.Neurons;
 
@@ -21,12 +17,10 @@ for Layer = 1:Layers
     end
 end
 
-% Plot axis dimensions
 XAxisDim = [1.5 LayerMargin*Layers + 0.5];
 YAxisDim = [-0.5 0.5]*NeuronMargin*max(Neurons);
 
-% Create and setup figure
-Handle     = figure;
+figure;
 AxisHandle = gca;
 xlim(XAxisDim);
 ylim(YAxisDim);
@@ -49,23 +43,21 @@ set(NeuronHandle, ...
 % Plot neurons
 for Layer = 1:Layers
     for Neuron = 1:Neurons(Layer)
-
-        % Get position
+        
         NeuronXPos = NeuronPos{Layer}(Neuron, 1);
         NeuronYPos = NeuronPos{Layer}(Neuron, 2);
-
+        
         % Copy graphical neruon (if not first)
         if Layer == 1 && Neuron == 1
             NewNeuronHandle = NeuronHandle;
         else
             NewNeuronHandle = copyobj(NeuronHandle, AxisHandle);
         end
-
-        % Set positon
+        
         set(NewNeuronHandle, ...
             'XData', NeuronX + NeuronXPos, ...
             'YData', NeuronY + NeuronYPos);
-
+        
     end
 end
 
@@ -83,32 +75,29 @@ set(EdgeHandle, ...
 for Layer = 2:Layers
     for Neuron2 = 1:Neurons(Layer)
         for Neuron1 = 1:Neurons(Layer - 1)
-
-            % Get neuron positions
+            
             NeuronXPos1  = NeuronPos{Layer - 1}(Neuron1, 1);
             NeuronXPos2  = NeuronPos{Layer}(Neuron2, 1);
             NeuronYPos1  = NeuronPos{Layer - 1}(Neuron1, 2);
             NeuronYPos2  = NeuronPos{Layer}(Neuron2, 2);
-
-            % Get angle
+            
             X = (NeuronXPos2 - NeuronXPos1);
             Y = (NeuronYPos2 - NeuronYPos1);
             Theta = atan(Y/X);
-
-            % Compute edge position
+            
             EdgeXPos1 = NeuronXPos1 + Rad*cos(Theta);
             EdgeXPos2 = NeuronXPos2 - Rad*cos(Theta);
             EdgeYPos1 = NeuronYPos1 + Rad*sin(Theta);
             EdgeYPos2 = NeuronYPos2 - Rad*sin(Theta);
-
+            
             % Copy graphical edge (if not first)
             if Layer == 2 && Neuron1 == 1 && Neuron2 == 1
                 NewEdgeHandle = EdgeHandle;
             else
                 NewEdgeHandle = copyobj(EdgeHandle, AxisHandle);
             end
-
-            % Determine edge color using weights and bias
+            
+            % Determine edge color using its weights and bias
             W          = ANN.W{Layer}(Neuron2, :);
             b          = ANN.b{Layer}(Neuron2, :);
             Z          = W + b; % assume normalized positive input
@@ -116,13 +105,12 @@ for Layer = 2:Layers
             normZ      = max(max(Z), eps);
             ColorScale = Z(Neuron1) / normZ;
             EdgeColor  = (1 - ColorScale)*[1 1 1];
-
-            % Set positon
+            
             set(NewEdgeHandle, ...
                 'XData', [EdgeXPos1 EdgeXPos2], ...
                 'YData', [EdgeYPos1 EdgeYPos2], ...
                 'Color', EdgeColor);
-
+            
         end
     end
 end

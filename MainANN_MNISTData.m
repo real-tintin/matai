@@ -1,5 +1,4 @@
-% Machine Learning ANN: MainANN_MNISTData
-function ANN = MainANN_MNISTData
+function ANN = MainANN_MNISTData()
 
 % TODO: ACTIVATION FUNCTIONS
 
@@ -12,10 +11,10 @@ Settings.ANN.CostFunc               = 'CrossEntropy';        % CrossEntropy or Q
 Settings.ANN.ClassMethod            = 'max1';                % max1 or above50%
 
 %% *** Settings for traning ***
-Settings.Train.Alfa                 = [2e-2 1e-2 1e-2];  % Learning rate [0,1]
-Settings.Train.Lambda               = [0.02 1e-6 1e-9];  % Weight decay [0,1]
-Settings.Train.Eta                  = [1e-3 1e-9 0];     % Momentum [0,1]
-Settings.Train.BreakPoint           = [0.03 0.01];       % Breakpoint(s) to change parameters
+Settings.Train.Alfas                = [2e-2 1e-2 1e-2];  % Learning rate [0,1]
+Settings.Train.Lambdas              = [0.02 1e-6 1e-9];  % Weight decay [0,1]
+Settings.Train.Etas                 = [1e-3 1e-9 0];     % Momentum [0,1]
+Settings.Train.BreakPoints          = [0.03 0.01];       % Breakpoint(s) to change parameters
 Settings.Train.BatchSize            = 100;               % Batch size
 Settings.Train.Epochs               = 5;                 % Epochs (forward/backward passes)
 
